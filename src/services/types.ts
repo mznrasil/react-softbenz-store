@@ -1,14 +1,28 @@
 export type MethodType = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
 export type ApiErrorType = {
-  success: boolean;
-  status_code: number;
-  status_message: string;
+  title: string;
+  message: string;
 };
 
-export interface WithPagination<T> {
-  page: number;
-  results: T[];
-  total_pages: number;
-  total_results: number;
+export interface ApiSuccessType<T> {
+  title: string;
+  message: string;
+  data: T;
 }
+
+export interface WithPagination<T> {
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    perviousPage: boolean;
+    nextPage: boolean;
+  };
+  docs: T[];
+}
+
+export type PaginationParamsType = {
+  page?: number;
+  limit?: number;
+};

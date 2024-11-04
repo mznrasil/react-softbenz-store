@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Api } from '@/services/axios.ts';
-import { ApiErrorType, MethodType } from '@/services/types.ts';
+import { ApiErrorType, ApiSuccessType, MethodType } from '@/services/types.ts';
 import toast from 'react-hot-toast';
 
 export const ApiClient = {
@@ -21,30 +21,30 @@ const createRequest = async <TData>(
   url: string,
   data?: unknown,
   config?: AxiosRequestConfig<TData>,
-): Promise<AxiosResponse<TData> | undefined> => {
+): Promise<AxiosResponse<ApiSuccessType<TData>> | undefined> => {
   try {
     switch (method) {
       case 'get':
       case 'delete':
-        return await Api[method]<TData>(url, config);
+        return await Api[method]<ApiSuccessType<TData>>(url, config);
       case 'post':
       case 'put':
       case 'patch':
-        return await Api[method]<TData>(url, data, config);
+        return await Api[method]<ApiSuccessType<TData>>(url, data, config);
       default:
         toast.error('Method not supported');
         return Promise.reject('Method not supported');
     }
   } catch (err) {
     let errorMessage: string = '';
+    console.log(err);
     if (err instanceof AxiosError) {
       const responseData = err.response?.data as ApiErrorType;
       if (!responseData) {
         errorMessage = err.cause?.message ?? err.message;
       }
-      if (!responseData.success) {
-        errorMessage = responseData.status_message;
-      }
+      console.log('hey');
+      errorMessage = responseData.message;
     } else if (err instanceof Error) {
       errorMessage = err?.message;
     } else if (typeof err === 'string') {

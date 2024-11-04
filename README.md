@@ -1,50 +1,31 @@
-# React + TypeScript + Vite
+# React SoftBenz Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple e-commerce store built with React and Vite as mentioned in the assignment.
+Following are the requirements that are fulfilled in this project:
 
-Currently, two official plugins are available:
+- The store should have a home page that displays a list of products.
+- The store should have a product detail page that displays the details of a product.
+- The store should have a cart page that displays the items in the cart.
+- Should be able to update cart items
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Caveats
 
-## Expanding the ESLint configuration
+Some of the caveats that I found while implementing the API provided in the list are:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- I could not add the product which had variantType other than "None" in the cart. This is because I could not figure out the payload to send to the API.
+- I tried to show all the variants in the product detail page, which showed different prices and the stock quantities, but the behavior of the stock quantities might not work correctly. 
+- I could not add the product items which were in stock.
 
-- Configure the top-level `parserOptions` property like this:
+## Packages Used
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+- `react-router-dom` for routing
+- `axios` for API requests
+- `react-hot-toast` for showing toasts
+- `lucide-react` for icons
+- `react-query` for data fetching
+- `tailwindcss` for styling
+- `shadcn ui` for some ui components
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Design
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
-```
+The design is fully responsive. I also designed the website in Figma. You can check the design [here](https://www.figma.com/design/NcPPvgCQ1votv4GAiXCjWa/Softbenz-Ecommerce?node-id=0-1&node-type=canvas&t=x1I91ZkgSNTO932s-0).
