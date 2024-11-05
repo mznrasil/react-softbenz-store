@@ -60,6 +60,7 @@ export type Product = {
 };
 
 export type AddItemToCartPayload = {
+  cartID: string;
   product: string;
   quantity: number;
   variantType: string;

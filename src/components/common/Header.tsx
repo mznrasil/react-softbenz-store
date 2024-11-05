@@ -3,9 +3,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { BoxIcon, HomeIcon, ShoppingBagIcon } from 'lucide-react';
 import { cn } from '@/lib/utils.ts';
 import { useGetCartDetails } from '@/features/cart/services/queries.ts';
+import { useCartContext } from '@/providers/CartProvider.tsx';
 
 export const Header = () => {
-  const cartID = sessionStorage.getItem('cart_id');
+  const { cartID } = useCartContext();
   const { data: cartData } = useGetCartDetails(cartID ?? '');
 
   return (

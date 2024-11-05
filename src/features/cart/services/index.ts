@@ -15,6 +15,7 @@ export const createNewCart = async () => {
 };
 
 export const getCartDetails = async (cartID: string) => {
+  if (!cartID) return null;
   const response = await ApiClient.get<GetCartDetailsResponse>(
     Endpoint.GetCartDetails.replace(':cartID', cartID),
   );
@@ -22,25 +23,10 @@ export const getCartDetails = async (cartID: string) => {
 };
 
 export const addItemToCart = async (payload: AddItemToCartPayload) => {
-  // check the session storage
-  const cartID = sessionStorage.getItem('cart_id');
-  let createdCartID = '';
-
-  // if the cart id already exists, use the cart id from the session storage
-  if (!cartID) {
-    const data = await createNewCart();
-    const cart_id = data?.data?._id;
-    if (!cart_id) {
-      throw new Error('Failed to create new cart');
-    }
-    sessionStorage.setItem('cart_id', data.data._id);
-    createdCartID = cart_id;
-  }
-
-  // otherwise create a new cart and store the cart id in the session storage and use that id
+  const { cartID, ...data } = payload;
   const response = await ApiClient.post<GetCartDetailsResponse>(
-    Endpoint.AddItemToCart.replace(':cartID', cartID || createdCartID),
-    payload,
+    Endpoint.AddItemToCart.replace(':cartID', cartID),
+    data,
   );
   return response;
 };

@@ -6,7 +6,7 @@ export const useGetCartDetails = (cartID: string) => {
   return useQuery({
     queryKey: [Endpoint.GetCartDetails, cartID],
     queryFn: () => getCartDetails(cartID),
-    enabled: !!cartID,
+    // enabled: !!cartID,
     select: (res) => res?.data,
   });
 };

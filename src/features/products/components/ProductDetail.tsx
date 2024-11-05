@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/breadcrumb.tsx';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { useAddToCart } from '@/features/cart/services/mutations.ts';
+import { useCartContext } from '@/providers/CartProvider.tsx';
 
 export const ProductDetail = ({ product }: { product: ProductDetailType }) => {
   const productVariants = useMemo(() => {
@@ -86,9 +87,12 @@ export const ProductDetail = ({ product }: { product: ProductDetailType }) => {
   };
 
   const { mutate: addToCart, isPending: isAddingToCart } = useAddToCart();
+  const { cartID } = useCartContext();
   const handleAddToCart = () => {
+    if (!cartID) return;
     // Add to cart logic
     addToCart({
+      cartID,
       product: product._id,
       quantity: 1,
       variantType: 'None',

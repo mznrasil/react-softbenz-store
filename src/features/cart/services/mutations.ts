@@ -1,10 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   addItemToCart,
+  createNewCart,
   updateCartItem,
 } from '@/features/cart/services/index.ts';
 import { Endpoint } from '@/features/cart/services/endpoint.ts';
 import toast from 'react-hot-toast';
+
+export const useCreateNewCart = () => {
+  return useMutation({
+    mutationFn: createNewCart,
+  });
+};
 
 export const useAddToCart = () => {
   const queryClient = useQueryClient();
